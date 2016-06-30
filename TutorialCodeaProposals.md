@@ -420,6 +420,7 @@ La última funcionalidad que agregaremos para completar el CRUD es borrar una `P
 ``` ruby
   def destroy
     @proposal = Proposal.find(params[:id])
+    @proposal.delete_codea
     @proposal.destroy
     flash[:danger] = "Propuesta borrada"
     redirect_to proposals_path
@@ -470,6 +471,7 @@ class ProposalsController < ApplicationController
 
   def destroy
     @proposal = Proposal.find(params[:id])
+    @proposal.delete_codea
     @proposal.destroy
     flash[:danger] = "Propuesta borrada"
     redirect_to proposals_path
@@ -624,7 +626,8 @@ class TwitterController < ApplicationController
     @proposal = Proposal.create(proposal_params)
     # Este es el comando que se comunica con CodeaTag para guardar tus propuestas.
     @proposal.send_to_codea
-    flash[:success] = "Propuesta Agregada"
+    flash[:success] = "
+    Propuesta Agregada"
     redirect_to proposals_path
   end
 
