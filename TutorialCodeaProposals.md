@@ -34,30 +34,30 @@ Vamos a crear una aplicación que te permitirá proponer invitados a Tag CDMX pa
 Para ello crearemos un modelo Propuesta que estará compuesto de 3 atributos:
 
 <table class="table table-responsive table-bordered table-condensed">
-	<thead>
-	<tr>
-		<th>Nombre</th>
-		<th>Tipo de Dato</th>
-		<th>Descripción</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-		<td>name</td>
-		<td>string</td>
-		<td>Nombre</td>
-	</tr>
-	<tr>
-		<td>avatar</td>
-		<td>string</td>
-		<td>Link de la imagen</td>
-	</tr>
-	<tr>
-		<td>twitter_handle</td>
-		<td>string</td>
-		<td>Nombre de usuario de Twitter</td>
-	</tr>
-	</tbody>
+  <thead>
+  <tr>
+    <th>Nombre</th>
+    <th>Tipo de Dato</th>
+    <th>Descripción</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>name</td>
+    <td>string</td>
+    <td>Nombre</td>
+  </tr>
+  <tr>
+    <td>avatar</td>
+    <td>string</td>
+    <td>Link de la imagen</td>
+  </tr>
+  <tr>
+    <td>twitter_handle</td>
+    <td>string</td>
+    <td>Nombre de usuario de Twitter</td>
+  </tr>
+  </tbody>
 </table>
 
 ## Actividades
@@ -187,32 +187,37 @@ La acción anterior trae de la base de datos todas las `Proposals` y como especi
     </div>
   </div><!-- container -->
 </div>
-<div  class="row col-md-10 col-md-offset-1">
-  <div id="search_results" class="row">
+<div class="container container-margin">
+  <div class="row">
     <% if @proposals.any? %>
       <% @proposals.each do |proposal| %>
-        <div class="search_thumbnails col-sm-6 col-md-3">
-          <div class="search_img proposal_box">
+        <div class="col-sm-6 col-md-4">
+          <div class="thumbnail thumbnail-fix">
             <% if proposal.avatar == "" %>
-              <%= link_to image_tag("http://icons.veryicon.com/128/Avatar/Face%20Avatars/Male%20Face%20N2.png", class:"img_box"), proposal_path(proposal) %>
+              <%= link_to image_tag("http://icons.veryicon.com/128/Avatar/Face%20Avatars/Male%20Face%20N2.png",
+                                    class:"img_box"), proposal_path(proposal) %>
             <% else %>
-              <%= image_tag(proposal.avatar, class:"img_box")%>
+              <% avatar = proposal.avatar.gsub!("_normal", "_bigger") %>
+              <%= link_to image_tag(avatar == nil ? proposal.avatar : avatar,
+                    class:"pull-left username-card-img"), proposal_path(proposal) %>
             <% end %>
-          </div>
-          <div class="search_caption">
-            <h5><%= link_to proposal.name, proposal_path(proposal) %></h5>
-          </div>
-          <div class="search_btn">
-            <%= link_to "E", edit_proposal_path(proposal), class: "btn btn-default btn-xs" %>
-            <%= link_to "X", proposal_path(proposal),
-            method: :delete,
-            data: { confirm: "¿Seguro que quieres eliminar la propuesta?" }, class: "btn btn-default btn-xs" %>
+            <div class="caption">
+              <h5 class="text-center username-card" style="display:inline-block">
+                <%= link_to proposal.name, proposal_path(proposal) %>
+              </h5>
+              <br>
+              <%= link_to "", edit_proposal_path(proposal),
+                                              class: "btn btn-warning btn-xs glyphicon glyphicon-pencil" %>
+              <%= link_to "", proposal_path(proposal),
+                    method: :delete,
+                    data: { confirm: "¿Seguro que quieres eliminar la propuesta?" },
+                    class: "btn btn-danger btn-xs glyphicon glyphicon-trash" %>
+            </div>
           </div>
         </div>
       <% end %>
-    <% else %>
-      <p>No has agregado propuestas aún</p>
-    <% end  %>
+    <% end %>
+  </div>
 </div>
 ```
 
@@ -325,28 +330,28 @@ Esta acción mostrará el archivo '/codeatag/app/views/proposals/show.html.erb'.
 - Accede a este archivo y copia en él el siguiente código que mostrará el detalle del `Proposal` que trajimos de la base de datos.
 
 ``` erb
-<div class="col-md-4 col-md-offset-4">
-  <div class="panel panel-default">
-    <div class="panel-body flex-center">
-      <% if @proposal.avatar == "" %>
-        <%= image_tag("http://icons.veryicon.com/128/Avatar/Face%20Avatars/Male%20Face%20N2.png", class:"img-responsive")%>
-      <% else %>
-        <% avatar = @proposal.avatar.gsub!("_normal", "") %>
-        <%= image_tag(avatar == nil ? @proposal.avatar : avatar, class:"img-responsive")%>
-      <% end %>
-      <div class="btn btn-danger btn-xs counter"> <%= @counter %></div>
-    </div>
-    <div class="panel-footer text-center h1">
-    <% p "*"*100 %>
-    	<% p @proposal %>
-    	<% if @proposal.twitter_handle != nil %>
-        <%= link_to image_tag("http://icons.veryicon.com/png/Application/Android%20Lollipop%20Apps/Twitter.png", class:"twitter_link", height: "40px", style: "margin-bottom: 10px;"), "http://www.twitter.com/#{@proposal.twitter_handle}", target: "_blank"%>
-      <% end %>
-      <%= @proposal.name %>
-      <div class="search_btn">
-	        <%= link_to "E", edit_proposal_path(@proposal), class: "btn btn-default btn-xs" %>
-	        <%= link_to "X", proposal_path(@proposal), method: :delete,
-	        data: { confirm: "¿Seguro que quieres eliminar la propuesta?" }, class: "btn btn-default btn-xs" %>
+<div class="row container-margin first-row">
+  <div class="col-md-4 col-md-offset-4">
+    <div class="panel panel-default">
+      <div class="panel-body flex-center">
+        <% if @proposal.avatar == "" %>
+          <%= image_tag("http://icons.veryicon.com/128/Avatar/Face%20Avatars/Male%20Face%20N2.png", class:"img-responsive")%>
+        <% else %>
+          <% avatar = @proposal.avatar.gsub!("_normal", "") %>
+          <%= image_tag(avatar == nil ? @proposal.avatar : avatar, class:"img-responsive")%>
+        <% end %>
+      </div>
+      <div class="panel-footer text-center">
+        <h2><%= @proposal.name %></h2>
+        <% if @proposal.twitter_handle != nil %>
+          <%= link_to image_tag("http://icons.veryicon.com/png/Application/Android%20Lollipop%20Apps/Twitter.png", class:"twitter_link", height: "40px", style: "margin-bottom: 10px;"), "http://www.twitter.com/#{@proposal.twitter_handle}", target: "_blank"%>
+        <% end %>
+        <%= link_to "", edit_proposal_path(@proposal),
+                                        class: "btn btn-warning btn-xs glyphicon glyphicon-pencil" %>
+        <%= link_to "", proposal_path(@proposal),
+              method: :delete,
+              data: { confirm: "¿Seguro que quieres eliminar la propuesta?" },
+              class: "btn btn-danger btn-xs glyphicon glyphicon-trash" %>
       </div>
     </div>
   </div>
