@@ -11,10 +11,18 @@ class Proposal < ActiveRecord::Base
 
   def counter_codea
       api_token = Rails.application.secrets.codea_tag_api_token            
-      # url = "http://codeatag.herokuapp.com/api_counter"
       url = "http://codeatag.herokuapp.com/api_counter"
       params = {"api_token" => api_token, 
                 "proposal[twitter_handle]" => self.twitter_handle}        
       Net::HTTP.post_form(URI.parse(url), params)  
   end
+  
+  def delete_codea
+      api_token = Rails.application.secrets.codea_tag_api_token            
+      url = "http://codeatag.herokuapp.com/api_decrement"
+      params = {"api_token" => api_token, 
+                "proposal[twitter_handle]" => self.twitter_handle}        
+      Net::HTTP.post_form(URI.parse(url), params)  
+  end
+  
 end
