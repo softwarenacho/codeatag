@@ -620,9 +620,9 @@ $ rails generate controller twitter
 
 En el vamos a colocar los métodos que se encargarán de:
 
--Dirigir a la página para nuevas propuestas de Twitter
--Buscar una propuesta en Twitter
--Guardar una nueva propuesta de Twitter
+- Dirigir a la página para nuevas propuestas de Twitter
+- Buscar una propuesta en Twitter
+- Guardar una nueva propuesta de Twitter
 
 Todas estas funciones se ejecutan sustituyendo el contenido del archivo 'codeatag/app/controllers/twitter_controller.rb' por el siguiente código, lee los comentarios para entender la función de cada uno de ellos:
 
@@ -658,6 +658,12 @@ class TwitterController < ApplicationController
 
 end
 ```
+
+Los siguientes links te servirán como documentación para entender de donde salió parte del código anterior.
+​
+- [Esta es la documentación de como utilizar la gema para hacer peticiones a twitter](http://www.rubydoc.info/gems/twitter)
+- [De esta parte de la documentación sacamos el método para buscar usuarios](http://www.rubydoc.info/gems/twitter/Twitter/REST/Users#user_search-instance_method)
+- [Aquí aprendimos con el método 'attrs' a conocer los atributos que podemos utilizar para cada usuario](http://www.rubydoc.info/gems/twitter/Twitter/User)
 
 **Recuerda grabar tus archivos después de cada modificación.**
 
