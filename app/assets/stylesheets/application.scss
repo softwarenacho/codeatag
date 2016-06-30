@@ -242,3 +242,27 @@ h1 {
 // span.glyphicon {
 //     font-size: 1.9em;
 // }
+
+.counter-show {
+  width: 22px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.options-margin {
+  margin-top: 10px;
+}
+
+.show-img {
+  position: relative;
+  margin: 0 auto;
+}
+
+@media only screen
+and (min-device-width : 100px)
+and (max-device-width : 369px) {
+  .navbar-brand {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
