@@ -195,7 +195,7 @@ La acción anterior trae de la base de datos todas las `Proposals` y como especi
           <div class="thumbnail thumbnail-fix">
             <% if proposal.avatar == "" %>
               <%= link_to image_tag("http://icons.veryicon.com/128/Avatar/Face%20Avatars/Male%20Face%20N2.png",
-                                    class:"img_box"), proposal_path(proposal) %>
+                                    class:"pull-left username-card-img"), proposal_path(proposal) %>
             <% else %>
               <% avatar = proposal.avatar.gsub!("_normal", "_bigger") %>
               <%= link_to image_tag(avatar == nil ? proposal.avatar : avatar,
@@ -557,12 +557,15 @@ Este token te permitirá que las propuestas que agregues a tu aplicación aparez
 
 Para conseguir este token debes acceder a la aplicación de CodeaTag entrando al siguiente link:
 
-- [CodeaTag - Nuevo Usuario](http://codeatag.herokuapp.com/users/new)
+- [CodeaTag](http://codeatag.herokuapp.com/)
 
-Ahí debes llenar el formulario que se te presenta, una vez que hayas enviado el mismo verás una página en la que en la parte inferior podrás ver tu `API Token`, manten esta página abierta pues la usaremos en el siguiente paso.
+Aquí debes dar click al botón 'Inicio con Twitter' ubicado en la barra de navegación de tu aplicación.
 
-![Codea Token](https://codealab.files.wordpress.com/2016/06/codea_token.png)
+![Sign In with Twitter](https://codealab.files.wordpress.com/2016/06/twitter_signin2.png)
 
+Esto nos va a loggear en nuestra aplicación por medio de la API de Twitter. Posteriormente nos va a redirigir al perfil de usuario de nuestra aplicación, donde podremos ver el Token que Codea genera para nosotros.
+
+![Codea Token](https://codealab.files.wordpress.com/2016/06/codea_token2.png)
 
 ### Configurar la API de Twitter y CodeaTag
 
